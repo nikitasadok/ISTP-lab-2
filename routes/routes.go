@@ -20,10 +20,15 @@ func NewRouter() *mux.Router {
 	postRoute := Route{Name: "Add", Method: "POST", Pattern: "/matches", HandlerFunc: handlers.AddMatchHandler}
 	deleteRoute := Route{Name: "Delete", Method: "DELETE", Pattern: "/matches/{id:[0-9]+}", HandlerFunc: handlers.DeleteMatchHandler}
 	putRoute := Route{Name: "Update", Method: "PUT", Pattern: "/matches/{id:[0-9]+}", HandlerFunc: handlers.UpdateMatchHandler}
+
+	getMatchTeamsRoute := Route{Name: "Get Match participants", Method: "GET", Pattern: "/match_teams/{id:[0-9]+}",
+		HandlerFunc: handlers.ListTeamsForMatch}
+
 	router.Methods(getRoute.Method).Path(getRoute.Pattern).Name(getRoute.Name).Handler(getRoute.HandlerFunc)
 	router.Methods(postRoute.Method).Path(postRoute.Pattern).Name(postRoute.Name).Handler(postRoute.HandlerFunc)
 	router.Methods(deleteRoute.Method).Path(deleteRoute.Pattern).Name(deleteRoute.Name).Handler(deleteRoute.HandlerFunc)
 	router.Methods(putRoute.Method).Path(putRoute.Pattern).Name(putRoute.Name).HandlerFunc(putRoute.HandlerFunc)
-
+	router.Methods(getMatchTeamsRoute.Method).Path(getMatchTeamsRoute.Pattern).Name(getMatchTeamsRoute.Name).
+		HandlerFunc(getMatchTeamsRoute.HandlerFunc)
 	return router
 }
